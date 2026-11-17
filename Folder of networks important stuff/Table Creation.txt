@@ -1,0 +1,93 @@
+---THIS IS HOW TO CREATE THE TABLE WITHOUT GOING THROUGH NORMALISATION STAGES
+
+USE master --create database
+GO
+IF NOT EXISTS (
+   SELECT name
+   FROM sys.databases
+   WHERE name = N'CourseworkDatabase'
+)
+CREATE DATABASE CourseworkDatabase
+GO
+
+CREATE TABLE Person 
+(
+ UserID NVARCHAR(50) PRIMARY KEY NOT NULL
+    CONSTRAINT CK_People_UserID_Valid
+        CHECK (
+            LEN(TRIM(UserID)) > 0 AND
+            UserID NOT LIKE '%[ ]%' AND
+            UserID NOT LIKE '%/%' AND
+            UserID NOT LIKE '%[()''"&%%!?]%'AND
+            UserID NOT LIKE '%[[]%' AND
+            UserID NOT LIKE '%]%'
+        ),
+     LoginID NVARCHAR(50) NOT NULL
+        CONSTRAINT CK_People_LoginID_Valid
+        CHECK (
+            LoginID NOT LIKE '%[ ]%' AND
+            LoginID NOT LIKE '%/%' AND
+            LoginID NOT LIKE '%[()''"&%%!?]%'AND
+            LoginID NOT LIKE '%[[]%' AND
+            LoginID NOT LIKE '%]%'
+        ),
+    Surname NVARCHAR(50),
+    Title NVARCHAR(MAX),
+   Phone VARCHAR(16)
+        CONSTRAINT CK_People_Phone_E164
+        CHECK (
+           Phone IS NULL OR
+        (
+            LEFT(Phone, 1) = '+' AND
+            SUBSTRING(Phone, 2, LEN(Phone) - 1) NOT LIKE '%[^0-9]%' AND
+            LEN(Phone) BETWEEN 2 AND 16
+        )
+       ),
+      UserLocation NVARCHAR(50)
+);
+GO
+
+CREATE TABLE PersonName
+(
+ UserID NVARCHAR(50) NOT NULL,
+    Forname NVARCHAR(50) NOT NULL,
+    PRIMARY KEY (UserID, Forname),
+    FOREIGN KEY (UserID) REFERENCES Person(UserID)
+);
+
+CREATE TABLE PersonEmail (
+ UserID NVARCHAR(50) NOT NULL,
+    Email NVARCHAR(255) NOT NULL,
+    PRIMARY KEY (UserID, Email),
+    FOREIGN KEY (UserID) REFERENCES Person(UserID)
+);
+
+ALTER TABLE [PersonEmail]
+ADD CONSTRAINT CK_PersonEmail_Email_At
+CHECK (
+    Email IS NULL OR
+    (
+        Email LIKE '%_@_%._%' AND
+        Email NOT LIKE '% %'
+    )
+);
+
+CREATE TABLE Position 
+(
+    PositionID INT IDENTITY PRIMARY KEY,
+    PositionName NVARCHAR(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE PersonPosition(
+ UserID NVARCHAR(50) NOT NULL,
+    PositionID INT NOT NULL,
+PRIMARY KEY (UserID, PositionID),
+
+    CONSTRAINT FK_PersonPosition_Person
+        FOREIGN KEY (UserID)
+        REFERENCES Person(UserID),
+
+    CONSTRAINT FK_PersonPosition_Position
+        FOREIGN KEY (PositionID)
+        REFERENCES Position(PositionID)
+);

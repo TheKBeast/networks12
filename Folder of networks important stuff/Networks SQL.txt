@@ -1,0 +1,178 @@
+--INSERT DATA x 10 PEOPLE:
+INSERT INTO Person VALUES
+('0', '12', 'Reed', 'Mr', '+447704495435', 'home') --one 
+
+INSERT INTO PersonName (UserID, Forname)
+VALUES
+('0', 'Kyle'),
+('0', 'Jack');
+
+INSERT INTO PersonEmail (UserID, Email)
+VALUES
+('0', 'kreed191@outlook.com'),
+('0', 'thekbeast3932@gmail.com');
+
+INSERT INTO Position (PositionName)
+VALUES ('student');
+
+INSERT INTO PersonPosition (UserID, PositionID)
+VALUES (0, 1);
+
+INSERT INTO Person VALUES
+('1', 'hi31', 'O''Connor', 'Mrs', '+447784995440', 'somewhere') --two using a ' 
+
+INSERT INTO PersonName (UserID, Forname)
+VALUES
+('1', 'Sarah')
+
+INSERT INTO PersonEmail (UserID, Email)
+VALUES
+('1', 's.Connor@hotmail.com')
+
+INSERT INTO Position (PositionName)
+VALUES ('teacher');
+
+INSERT INTO PersonPosition (UserID, PositionID)
+VALUES (1, 2);
+
+INSERT INTO Person VALUES
+('654321', 'cssbct', 'Tompsett', 'Eur Ing', '+441482465222', 'In RB-336') --three letter userID
+
+INSERT INTO PersonName (UserID, Forname)
+VALUES
+('654321', 'Brian C')
+
+INSERT INTO PersonEmail (UserID, Email)
+VALUES
+('654321', 's.Connor@hotmail.com')
+
+INSERT INTO Position (PositionName)
+VALUES ('Lecturer of Computer Science');
+
+INSERT INTO PersonPosition (UserID, PositionID)
+VALUES ('654321', 3);
+
+INSERT INTO Person VALUES
+('3', 'cssbct', 'Grey', 'Eur Ing', '+441762465298', 'In RB-336') --four
+
+INSERT INTO PersonName (UserID, Forname)
+VALUES
+('3', 'Simon')
+
+INSERT INTO PersonEmail (UserID, Email)
+VALUES
+('3', 'S.Grey@hull.ac.uk')
+
+
+INSERT INTO PersonPosition (UserID, PositionID)
+VALUES ('3', 3);
+
+INSERT INTO Person VALUES
+('4', 'cssbct', 'Grey', 'Eur Ing', '+441762465298', 'In RB-336') --five, same phone as four && email
+
+INSERT INTO PersonName (UserID, Forname)
+VALUES
+('4', 'NotSimon')
+
+INSERT INTO PersonEmail (UserID, Email)
+VALUES
+('4', 'S.Grey@hull.ac.uk')
+
+
+INSERT INTO PersonPosition (UserID, PositionID)
+VALUES ('4', 3);
+
+INSERT INTO Person VALUES
+('5', '12', '', 'Mr', '+447704875435', 'somewhere') --six, no last name, many first and same email and login as one
+
+INSERT INTO PersonName (UserID, Forname)
+VALUES
+('5', 'Ker'),
+('5', 'River'),
+('5', 'Goro'),
+('5', 'Johnny');
+
+INSERT INTO PersonEmail (UserID, Email)
+VALUES
+('5', 'j.Silverhand@outlook.com'),
+('5', 'kreed191@outlook.com'),
+('5', 'thekbeast3932@gmail.com');
+
+
+INSERT INTO PersonPosition (UserID, PositionID)
+VALUES (5, 1);
+
+INSERT INTO Person VALUES
+('6', '1998', 'Stampede', 'Mx', '+447787875435', 'a different planet') --seven
+
+INSERT INTO PersonName (UserID, Forname)
+VALUES
+('6', 'Vash')
+
+INSERT INTO PersonEmail (UserID, Email)
+VALUES
+('6', 'vsh.stmp@space.net')
+
+
+INSERT INTO PersonPosition (UserID, PositionID)
+VALUES (6, 2);
+
+INSERT INTO Person VALUES
+('7', 'pirate', 'Solom', 'Captain', '+447787875987', 'sea') --eight
+
+INSERT INTO PersonName (UserID, Forname)
+VALUES
+('7', 'Solom')
+
+INSERT INTO PersonEmail (UserID, Email)
+VALUES
+('7', 's@thesea.sea')
+
+
+INSERT INTO PersonPosition (UserID, PositionID)
+VALUES (7, 2);
+
+INSERT INTO Person VALUES
+('8', 'BL', 'Ben', 'Mr', '+447187875987', 'in RB-336') --nine
+
+INSERT INTO PersonName (UserID, Forname)
+VALUES
+('8', 'Longin')
+
+INSERT INTO PersonEmail (UserID, Email)
+VALUES
+('8', 'bl@hull.com')
+
+
+INSERT INTO PersonPosition (UserID, PositionID)
+VALUES (8, 1);
+
+INSERT INTO Person VALUES
+('9', '19', 'Maxi-Moon', 'Ms', '+447187875987', 'in RB-336') --ten
+
+INSERT INTO PersonName (UserID, Forname)
+VALUES
+('9', 'Gabby')
+
+INSERT INTO PersonEmail (UserID, Email)
+VALUES
+('9', 'gab@cookie.net')
+
+INSERT INTO PersonPosition (UserID, PositionID)
+VALUES (9, 1);
+
+--EXAMPLES (TEST)
+SELECT * FROM Person Where LoginID = 'cssbct' --lookup
+SELECT * FROM PersonPosition Where UserID = '1'
+SELECT * FROM PersonEmail Where UserID = '1'
+
+DELETE FROM PersonPosition WHERE UserID = '6'; --delete
+DELETE FROM PersonEmail WHERE UserID = '6';
+DELETE FROM PersonName WHERE UserID = '6';
+DELETE FROM Person WHERE UserID = '6';
+
+UPDATE Person SET Surname = 'NewLastName' WHERE UserID = '3' ---update
+UPDATE PersonName SET Surname = 'NewFirstName' WHERE UserID = '3'
+UPDATE PersonEmail SET Forname = 'NewEmail@email.com' WHERE UserID = '3'
+UPDATE PersonPosition SET PositionID = '2' WHERE LoginID = 'cssbct'
+UPDATE Position SET PositionName = 'NewPosition' WHERE PositionName = 'teacher'
